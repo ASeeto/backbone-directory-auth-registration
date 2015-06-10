@@ -13,7 +13,8 @@ window.HeaderView = Backbone.View.extend({
 
     events: {
         "keyup .search-query": "search",
-        "keypress .search-query": "onkeypress"
+        "keypress .search-query": "onkeypress",
+        "click #logout": "logout"
     },
 
     search: function () {
@@ -34,6 +35,23 @@ window.HeaderView = Backbone.View.extend({
     select: function(menuItem) {
         $('.nav li').removeClass('active');
         $('.' + menuItem).addClass('active');
+    },
+
+    logout:function (event) {
+        event.preventDefault(); // Don't let this button submit the form
+        $('.alert-error').hide(); // Hide any errors on a new submit
+        var url = '../../api/logout';
+        console.log('Logging out... ');
+
+        $.ajax({
+            url:url,
+            type:'POST',
+            dataType:"json",
+            success:function () {
+                // Send them back to the login page
+                window.location.replace('/web/#');
+            }
+        });
     }
 
 });

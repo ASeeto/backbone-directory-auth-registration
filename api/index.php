@@ -7,6 +7,7 @@ require 'Slim/Slim.php';
 $app = new Slim();
 
 $app->post('/login', 'login');
+$app->post('/logout', 'logout');
 $app->post('/register', 'register');
 $app->get('/employees', authorize('user'),'getEmployees');
 $app->get('/employees/:id', authorize('user'),  'getEmployee');
@@ -72,6 +73,15 @@ function login() {
     else {
         echo '{"error":{"text":"An Email Address and Password are required."}}';
     }
+}
+
+/**
+ * Sign a user out by unsetting current session
+ */
+function logout() {
+    unset($_SESSION['user']);
+    // Finally, destroy the session.
+    session_destroy();
 }
 
 /**
@@ -297,10 +307,10 @@ function getModifiedEmployees($modifiedSince) {
 }
 
 function getConnection() {
-    $dbhost="127.0.0.1";
+    $dbhost="localhost";
     $dbuser="root";
     $dbpass="";
-    $dbname="directory";
+    $dbname="project";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);  
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $dbh;
