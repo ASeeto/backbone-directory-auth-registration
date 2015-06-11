@@ -1,14 +1,21 @@
+/**
+ *  DEFAULT variables for my personal directory hierarchy
+ */
+var BASEURL = '/projects/';
+var PROJECT = 'backbone-directory';
+var SLIMLOC = BASEURL+PROJECT+'/api';
+
 // Tell jQuery to watch for any 401 or 403 errors and handle them appropriately
 $.ajaxSetup({
     statusCode: {
         401: function(){
             // Redirec the to the login page.
-            window.location.replace('/web/#login');
+            window.location.replace(baseURL+project+'/#login');
          
         },
         403: function() {
             // 403 -- Access denied
-            window.location.replace('/web/#denied');
+            window.location.replace(baseURL+project+'/#denied');
         }
     }
 });
@@ -43,15 +50,25 @@ window.Router = Backbone.Router.extend({
     },
 
     home: function () {
-        // Since the home view never changes, we instantiate it and render it only once
-        if (!this.homeView) {
-            this.homeView = new HomeView();
-            this.homeView.render();
-        } else {
-            this.homeView.delegateEvents(); // delegate events when the view is recycled
-        }
-        $("#content").html(this.homeView.el);
         this.headerView.select('home-menu');
+        var page = 'home';
+        var url = SLIMLOC+'/session';
+        $.ajax({
+            url:url,
+            type:'GET',
+            success:function () {
+                window.location.replace(BASEURL+PROJECT+'/#'+page);
+                if (!this.homeView) {
+                    this.homeView = new HomeView();
+                    this.homeView.render();
+                }
+                $("#content").html(this.homeView.el);
+            },
+            error:function () {
+                window.location.replace(BASEURL+PROJECT+'/#login');
+                $('.nav li').removeClass('active');
+            }
+        });
     },
 
     contact: function () {

@@ -1,3 +1,7 @@
+#logout {
+	display: none;
+}
+
 .dropdown-menu {
     max-height: 400px;
     overflow-y: scroll;

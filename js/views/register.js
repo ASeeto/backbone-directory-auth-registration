@@ -1,3 +1,10 @@
+/**
+ *  DEFAULT variables for my personal directory hierarchy
+ */
+var BASEURL = '/projects/';
+var PROJECT = 'backbone-directory';
+var SLIMLOC = BASEURL+PROJECT+'/api';
+
 window.RegisterView = Backbone.View.extend({
 
     initialize:function () {
@@ -16,7 +23,7 @@ window.RegisterView = Backbone.View.extend({
     register:function (event) {
         event.preventDefault(); // Don't let this button submit the form
         $('.alert-error').hide(); // Hide any errors on a new submit
-        var url = '../../api/register';
+        var url = SLIMLOC+'/register';
         console.log('Registering... ');
         var formValues = {
             email: $('#inputEmail').val(),
@@ -35,7 +42,8 @@ window.RegisterView = Backbone.View.extend({
                     $('.alert-error').text(data.error.text).show();
                 }
                 else { // If not, send them back to the home page
-                    window.location.replace('/web/#home');
+                    $("#logout").show();
+                    window.location.replace(BASEURL+PROJECT+'/#home');
                 }
             }
         });

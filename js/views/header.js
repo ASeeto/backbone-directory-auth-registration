@@ -1,6 +1,21 @@
+/**
+ *  DEFAULT variables for my personal directory hierarchy
+ */
+var BASEURL = '/projects/';
+var PROJECT = 'backbone-directory';
+var SLIMLOC = BASEURL+PROJECT+'/api';
+
 window.HeaderView = Backbone.View.extend({
 
     initialize: function () {
+        var url = SLIMLOC+'/session';
+        $.ajax({
+            url:url,
+            type:'GET',
+            success:function () {
+                $("#logout").show();
+            }
+        });
         this.searchResults = new EmployeeCollection();
         this.searchresultsView = new EmployeeListView({model: this.searchResults, className: 'dropdown-menu'});
     },
@@ -40,7 +55,7 @@ window.HeaderView = Backbone.View.extend({
     logout:function (event) {
         event.preventDefault(); // Don't let this button submit the form
         $('.alert-error').hide(); // Hide any errors on a new submit
-        var url = '../../api/logout';
+        var url = SLIMLOC+'/logout';
         console.log('Logging out... ');
 
         $.ajax({
@@ -48,8 +63,9 @@ window.HeaderView = Backbone.View.extend({
             type:'POST',
             dataType:"json",
             success:function () {
+                $("#logout").hide();
                 // Send them back to the login page
-                window.location.replace('/web/#');
+                window.location.replace(BASEURL+PROJECT+'/#');
             }
         });
     }

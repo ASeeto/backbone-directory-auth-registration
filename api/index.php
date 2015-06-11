@@ -9,6 +9,7 @@ $app = new Slim();
 $app->post('/login', 'login');
 $app->post('/logout', 'logout');
 $app->post('/register', 'register');
+$app->get('/session', authorize('user'));
 $app->get('/employees', authorize('user'),'getEmployees');
 $app->get('/employees/:id', authorize('user'),  'getEmployee');
 $app->get('/employees/:id/reports', authorize('user'),  'getReports');

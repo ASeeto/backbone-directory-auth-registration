@@ -1,10 +1,17 @@
+/**
+ *  DEFAULT variables for my personal directory hierarchy
+ */
+var BASEURL = '/projects/';
+var PROJECT = 'backbone-directory';
+var SLIMLOC = BASEURL+PROJECT+'/api';
+
 window.Employee = Backbone.Model.extend({
 
-    urlRoot:"../../api/employees",
+    urlRoot:SLIMLOC+'/employees',
 
     initialize:function () {
         this.reports = new EmployeeCollection();
-        this.reports.url = '../../api/employees/' + this.id + '/reports';
+        this.reports.url = SLIMLOC+'/employees/' + this.id + '/reports';
     }
 
 });
@@ -16,7 +23,7 @@ window.EmployeeCollection = Backbone.Collection.extend({
     url:"../../api/employees",
 
     findByName:function (key) {
-        var url = (key == '') ? '../../api/employees' : "../../api/employees/search/" + key;
+        var url = (key == '') ? SLIMLOC+'/employees' : SLIMLOC+'/employees/search/' + key;
         console.log('findByName: ' + key);
         var self = this;
         $.ajax({
