@@ -22,6 +22,21 @@ Prerequisites: LAMP Server (Linux, Apache, MySQL, PHP) - [10 Step Guide](https:/
   mysql directory -uroot < users.sql
   ```
 
+3) Change the following files according to your directory hierarchy: 
+  ```
+  /js/main.js
+  /js/views/header.js
+  /js/views/login.js
+  /js/views/register.js
+  /js/models/employeemodel.js
+  ```
+  For convenience, I have provided the following DEFAULT variables for you to alter in each file:
+  ```
+  BASEURL : (the overarching directory for all projects)
+  PROJECT : (the name of your project)
+  SLIMLOC : (the location of Slim Framework for this project)
+  ```
+
 # Resources
 Please check out the projects below for more information.
 - [Backbone Directory](https://github.com/ccoenraets/backbone-directory) by [Christophe Coenraets](http://coenraets.org/)
