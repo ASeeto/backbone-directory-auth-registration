@@ -20,7 +20,7 @@ window.EmployeeCollection = Backbone.Collection.extend({
 
     model: Employee,
 
-    url:"../../api/employees",
+    url:SLIMLOC+'/employees',
 
     findByName:function (key) {
         var url = (key == '') ? SLIMLOC+'/employees' : SLIMLOC+'/employees/search/' + key;
